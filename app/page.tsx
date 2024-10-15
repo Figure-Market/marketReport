@@ -1,101 +1,246 @@
-import Image from "next/image";
+import Image from 'next/image'
+import { ArrowRight } from 'lucide-react'
 
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+    <div className="min-h-screen bg-white text-gray-900">
+      {/* Header */}
+      <header className="bg-gradient-to-r from-green-600 to-blue-600 shadow-sm">
+        <nav className="container mx-auto px-4 py-4 flex items-center justify-between">
+          <div className="flex items-center">
+            <Image src="/images/logo.jpg" alt="Figurush Logo" width={32} height={32} className="mr-2" />
+            <span className="font-bold text-xl text-white">Figurush</span>
+          </div>
+          <div className="hidden md:flex space-x-4">
+            <a href="#" className="text-gray-200 hover:text-white">Features</a>
+            <a href="#" className="text-gray-200 hover:text-white">Pricing</a>
+            <a href="#" className="text-gray-200 hover:text-white">FAQ</a>
+            <a href="#" className="text-gray-200 hover:text-white">Support</a>
+          </div>
+          <div className="flex items-center space-x-4">
+            <a href="#" className="text-white hover:text-gray-300">Log in</a>
+            <a href="#" className="bg-white text-green-600 px-4 py-2 rounded-md hover:bg-gray-200">Open App</a>
+          </div>
+        </nav>
+      </header>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+      {/* Hero Section */}
+      <section className="container mx-auto px-4 py-16 md:py-24 flex flex-col md:flex-row items-center justify-center">
+        <div className="md:w-1/2 mb-8 md:mb-0">
+          <h1 className="text-4xl md:text-5xl font-bold mb-4">
+            Automate Your Market Reports & <span className="text-blue-600">Boost Your Ads</span>
+          </h1>
+          <p className="text-xl text-gray-600 mb-6">
+            The future of marketing intelligence is here. Automate reports, generate targeted ads, and grow your business.
+          </p>
+          <p className="text-gray-600 mb-8">
+            Discover the power of AI-driven analytics and advertisement automation for data-driven decisions and enhanced ROI.
+          </p>
+          <div className="flex space-x-4">
+            <button className="bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-700">
+              Get Started
+            </button>
+            <button className="bg-green-600 text-white px-6 py-3 rounded-md hover:bg-green-700">
+              Contact Us
+            </button>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+        <div className="md:w-1/2 flex justify-center mt-8 md:mt-0">
+          <div className="p-4 rounded-lg bg-gradient-to-r from-green-500 to-blue-500 shadow-lg flex justify-center">
+            <Image
+              src="/images/hero.jpg"
+              alt="AI Report Automation"
+              width={600}
+              height={400}
+              className="rounded-lg"
+            />
+          </div>
+        </div>
+      </section>
+
+
+
+      {/* Features Section */}
+      <section className="bg-white py-16 text-gray-900">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold mb-12 text-center">
+            Streamline Your <span className="text-blue-600">Market Intelligence</span>
+          </h2>
+
+          {/* Feature Highlights */}
+          <div className="flex justify-center space-x-4 mb-8">
+            <button className="px-4 py-2 text-blue-600 border-b-2 border-blue-600 focus:outline-none focus:border-blue-700">
+              Market Reports
+            </button>
+            <button className="px-4 py-2 text-gray-600 hover:text-blue-600 focus:outline-none">
+              Ad Creation
+            </button>
+            <button className="px-4 py-2 text-gray-600 hover:text-blue-600 focus:outline-none">
+              Data Insights
+            </button>
+          </div>
+
+          {/* Main Feature */}
+          <div className="text-center mb-16">
+            <p className="text-gray-600 mb-8 max-w-2xl mx-auto">
+              Automate comprehensive, real-time market reports with AI-driven insights to stay ahead of competitors. Our system gathers relevant data, provides actionable insights, and presents it in a digestible format.
+            </p>
+            <div className="relative mx-auto w-full max-w-4xl">
+              <Image
+                src="/images/first.jpg"
+                alt="Automated Reports"
+                layout="responsive"
+                width={800}
+                height={400}
+                className="rounded-lg shadow-xl"
+              />
+            </div>
+          </div>
+
+          {/* Secondary Features */}
+          <div className="space-y-16">
+            {/* Automated Market Reports */}
+            <div className="flex flex-col md:flex-row items-center md:space-x-8 space-y-8 md:space-y-0">
+              <div className="md:w-1/2 text-center md:text-left flex flex-col justify-center">
+                <h3 className="text-2xl font-semibold mb-4">Automated Market Reports</h3>
+                <p className="text-gray-600 mb-4">
+                  Generate up-to-date market reports in minutes, tailored to your specific business needs. Save time and reduce the complexity of data gathering with our intelligent automation tools.
+                </p>
+                <button className="text-blue-600 font-semibold hover:underline">Learn More</button>
+              </div>
+              <div className="md:w-1/2">
+                <div className="relative w-full">
+                  <Image
+                    src="/images/hero.jpg"
+                    alt="Automated Reports"
+                    layout="responsive"
+                    width={400}
+                    height={200}
+                    className="rounded-lg shadow-md"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* AI-Driven Ads */}
+            <div className="flex flex-col md:flex-row-reverse items-center md:space-x-8 space-y-8 md:space-y-0">
+              <div className="md:w-1/2 text-center md:text-right flex flex-col justify-center">
+                <h3 className="text-2xl font-semibold mb-4">AI-Driven Ad Creation</h3>
+                <p className="text-gray-600 mb-4">
+                  Use AI to automatically generate, optimize, and personalize ads for your target audience. Enhance engagement and conversions with ads that are tailored to user behavior and trends.
+                </p>
+                <button className="text-blue-600 font-semibold hover:underline">Learn More</button>
+              </div>
+              <div className="md:w-1/2">
+                <div className="relative w-full">
+                  <Image
+                    src="/images/hero.jpg"
+                    alt="AI-Generated Ads"
+                    layout="responsive"
+                    width={400}
+                    height={200}
+                    className="rounded-lg shadow-md"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Extra Features */}
+          <div className="text-center mt-16">
+            <h3 className="text-3xl font-semibold mb-4">Take Control of Your Data</h3>
+            <p className="text-gray-600 mb-6">
+              Leverage the power of AI for unparalleled market insights and advertisement creation. Our platform helps you harness data to make informed decisions, driving business growth.
+            </p>
+            <button className="bg-green-600 text-white px-6 py-2 rounded-md hover:bg-green-700">Start Free Trial</button>
+          </div>
+        </div>
+      </section>
+
+      {/* Business Analytics Section */}
+      <section className="w-full bg-gradient-to-b from-green-500 to-blue-600 text-white py-16">
+        <div className="container mx-auto flex flex-col md:flex-row items-center justify-between p-8">
+          {/* Text Section */}
+          <div className="md:w-1/2 text-left">
+            <h2 className="text-3xl font-bold mb-4">Experience AI-Powered Business Analytics</h2>
+            <p className="text-gray-200 mb-6">
+              Unlock AI-driven features to transform data into actionable insights. Start your free trial today and see how our platform can revolutionize your business operations.
+            </p>
+            <ul className="space-y-2 mb-6">
+              <li className="flex items-center">
+                <ArrowRight className="text-green-300 mr-2" />
+                <span>AI-powered, real-time data insights</span>
+              </li>
+              <li className="flex items-center">
+                <ArrowRight className="text-green-300 mr-2" />
+                <span>Data-driven decision-making tools</span>
+              </li>
+              <li className="flex items-center">
+                <ArrowRight className="text-green-300 mr-2" />
+                <span>Unified model for data and AI analytics</span>
+              </li>
+            </ul>
+            <button className="bg-white text-green-600 px-6 py-2 rounded-md hover:bg-gray-200">
+              Get a Demo
+            </button>
+          </div>
+
+          {/* Image Section */}
+          <div className="md:w-1/2 flex justify-center mt-8 md:mt-0">
+            <div className="rounded-lg bg-white p-4 shadow-lg">
+              <Image src="/images/belowSide.png" alt="AI Analytics" width={500} height={300} className="rounded-lg" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+
+      {/* Footer */}
+      <footer className="bg-gray-50 border-t border-gray-200 py-12">
+        <div className="container mx-auto px-4">
+          <div className="grid md:grid-cols-4 gap-8">
+            <div>
+              <h3 className="font-semibold text-gray-800 mb-4">About</h3>
+              <ul className="space-y-2">
+                <li><a href="#" className="text-gray-600 hover:text-green-600">Company Overview</a></li>
+                <li><a href="#" className="text-gray-600 hover:text-green-600">Careers</a></li>
+                <li><a href="#" className="text-gray-600 hover:text-green-600">Press & Media</a></li>
+                <li><a href="#" className="text-gray-600 hover:text-green-600">Testimonials</a></li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="font-semibold text-gray-800 mb-4">Resources</h3>
+              <ul className="space-y-2">
+                <li><a href="#" className="text-gray-600 hover:text-green-600">Blog</a></li>
+                <li><a href="#" className="text-gray-600 hover:text-green-600">Help Center</a></li>
+                <li><a href="#" className="text-gray-600 hover:text-green-600">Webinars & Events</a></li>
+                <li><a href="#" className="text-gray-600 hover:text-green-600">Case Studies</a></li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="font-semibold text-gray-800 mb-4">Support & Contact</h3>
+              <ul className="space-y-2">
+                <li><a href="#" className="text-gray-600 hover:text-green-600">Contact Us</a></li>
+                <li><a href="#" className="text-gray-600 hover:text-green-600">Technical Support</a></li>
+                <li><a href="#" className="text-gray-600 hover:text-green-600">Feedback</a></li>
+                <li><a href="#" className="text-gray-600 hover:text-green-600">Community Forum</a></li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="font-semibold text-gray-800 mb-4">Legal</h3>
+              <ul className="space-y-2">
+                <li><a href="#" className="text-gray-600 hover:text-green-600">Terms of Use</a></li>
+                <li><a href="#" className="text-gray-600 hover:text-green-600">Privacy Policy</a></li>
+                <li><a href="#" className="text-gray-600 hover:text-green-600">Security</a></li>
+              </ul>
+            </div>
+          </div>
+          <div className="mt-8 pt-8 border-t border-gray-200 text-center text-gray-600">
+            <p>&copy; 2024 Figurush. All rights reserved.</p>
+          </div>
+        </div>
       </footer>
     </div>
-  );
+  )
 }
