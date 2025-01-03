@@ -1,28 +1,32 @@
+"use client";
+
 import Image from 'next/image'
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, ChevronDown } from 'lucide-react'
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+import AdGallery from '@/components/ui/adGallery';
+import UpperNavigation from '@/components/upperNavigation';
 
 export default function Home() {
+
+  const router = useRouter();
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  const handleDropdownToggle = () => {
+    setIsDropdownOpen((prev) => !prev);
+  };
+
+  const handleDropdownItemClick = (path) => {
+    router.push(path);
+    setIsDropdownOpen(false);
+  };
+
   return (
     <div className="min-h-screen bg-white text-gray-900">
-      {/* Header */}
-      <header className="bg-gradient-to-r from-green-600 to-blue-600 shadow-sm">
-        <nav className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center">
-            <Image src="/images/logo.jpg" alt="Figurush Logo" width={32} height={32} className="mr-2" />
-            <span className="font-bold text-xl text-white">Figurush</span>
-          </div>
-          <div className="hidden md:flex space-x-4">
-            <a href="#" className="text-gray-200 hover:text-white">Features</a>
-            <a href="#" className="text-gray-200 hover:text-white">Pricing</a>
-            <a href="#" className="text-gray-200 hover:text-white">FAQ</a>
-            <a href="#" className="text-gray-200 hover:text-white">Support</a>
-          </div>
-          <div className="flex items-center space-x-4">
-            <a href="#" className="text-white hover:text-gray-300">Log in</a>
-            <a href="#" className="bg-white text-green-600 px-4 py-2 rounded-md hover:bg-gray-200">Open App</a>
-          </div>
-        </nav>
-      </header>
+      <div>
+        <UpperNavigation/>
+      </div>
 
       {/* Hero Section */}
       <section className="container mx-auto px-4 py-16 md:py-24 flex flex-col md:flex-row items-center justify-center">
@@ -37,7 +41,9 @@ export default function Home() {
             Discover the power of AI-driven analytics and advertisement automation for data-driven decisions and enhanced ROI.
           </p>
           <div className="flex space-x-4">
-            <button className="bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-700">
+            <button
+              onClick={() => router.push('/reportInput')}
+              className="bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-700">
               Get Started
             </button>
             <button className="bg-green-600 text-white px-6 py-3 rounded-md hover:bg-green-700">
@@ -86,14 +92,15 @@ export default function Home() {
               Automate comprehensive, real-time market reports with AI-driven insights to stay ahead of competitors. Our system gathers relevant data, provides actionable insights, and presents it in a digestible format.
             </p>
             <div className="relative mx-auto w-full max-w-4xl">
-              <Image
+              {/* <Image
                 src="/images/first.jpg"
                 alt="Automated Reports"
                 layout="responsive"
                 width={800}
                 height={400}
                 className="rounded-lg shadow-xl"
-              />
+              /> */}
+              <AdGallery />
             </div>
           </div>
 
@@ -123,7 +130,7 @@ export default function Home() {
             </div>
 
             {/* AI-Driven Ads */}
-            <div className="flex flex-col md:flex-row-reverse items-center md:space-x-8 space-y-8 md:space-y-0">
+            {/* <div className="flex flex-col md:flex-row-reverse items-center md:space-x-8 space-y-8 md:space-y-0">
               <div className="md:w-1/2 text-center md:text-right flex flex-col justify-center">
                 <h3 className="text-2xl font-semibold mb-4">AI-Driven Ad Creation</h3>
                 <p className="text-gray-600 mb-4">
@@ -143,8 +150,23 @@ export default function Home() {
                   />
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
+
+
+          <div className="text-center mt-16">
+          <h2 className="text-3xl font-semibold mb-4">Generate</h2>
+          <Image
+              src="https://cdn.prod.website-files.com/63d0cf0e80f1f251da5f0157/652f0bac7a58b71544f15a49_Group%20427322161.png"
+              alt="On Brand Example"
+              width={1200.5} // Corresponds to the width in the original HTML
+              height={477} // Corresponds to the height in the original HTML
+              sizes="(max-width: 767px) 100vw, (max-width: 991px) 94vw, (max-width: 1919px) 95vw, 1200px"
+              className="new-home-on-brand-pic for-desk"
+              loading="lazy" // Lazy loading by default in Next.js
+            />
+          </div>
+
 
           {/* Extra Features */}
           <div className="text-center mt-16">

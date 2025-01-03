@@ -2,25 +2,31 @@
 
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
+import { useRouter } from 'next/navigation';
+import UpperNavigation from "@/components/upperNavigation";
 
 export default function Home() {
-  const [inputValue, setInputValue] = useState("");
+  const [inputValue, setInputValue] = useState(""); 
+  const router = useRouter();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Submitted:", inputValue);
+    // console.log("Submitted:", inputValue);
+    router.push('/finalReport');
   };
 
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-r from-gray-50 to-gray-100">
+      <UpperNavigation/>
       {/* Main Content Wrapper */}
-      <div className="flex-grow flex flex-col items-center px-8 py-12">
+      <div className="flex-grow flex flex-col items-center px-8 py-12 mt-16">
+
         {/* Header */}
-        <header className="mb-12 text-center w-full">
+        {/* <header className="mb-12 text-center w-full">
           <h1 className="text-4xl font-extrabold text-gray-900 tracking-tight font-inter">
             Figurush <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-blue-600">/AI Market Reports</span>
           </h1>
-        </header>
+        </header> */}
 
         {/* Main Content */}
         <main className="w-full max-w-6xl text-center">
@@ -40,11 +46,11 @@ export default function Home() {
 
           {/* Form */}
           <form onSubmit={handleSubmit} className="mb-12">
-            <div className="bg-white/30 backdrop-blur-lg rounded-xl shadow-lg p-6 mx-auto max-w-3xl">
+            <div className="bg-blue-300/10 backdrop-blur-lg rounded-xl shadow-lg p-6 mx-auto max-w-3xl">
               <textarea
                 rows={4}
                 placeholder="Describe your market or report needs..."
-                className="w-full p-4 text-gray-700 rounded-lg bg-white bg-opacity-70 focus:outline-none resize-none shadow-inner"
+                className="w-full p-4 text-gray-700 rounded-lg bg-white bg-opacity-80 focus:outline-none resize-none shadow-inner"
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
               />
@@ -85,13 +91,17 @@ export default function Home() {
                 content: "Analyze how AI is transforming the financial industry with advanced algorithms for risk management, trading, and market analysis."
               },
             ].map((idea, index) => (
-              <div
+                <div
                 key={index}
-                className="bg-gradient-to-r from-blue-300/30 to-red-300/30 backdrop-blur-lg rounded-lg shadow-lg p-6 text-gray-800 transition-transform transform hover:scale-105 flex flex-col justify-center items-center text-center"
-                style={{ minHeight: "200px" }}
+                className="bg-white/30 backdrop-blur-md rounded-xl shadow-lg p-6 text-gray-800 transition-transform transform hover:scale-105 hover:shadow-[0_4px_15px_5px_rgba(56,189,248,0.3)] flex flex-col justify-center items-center text-center border border-white/20"
+                style={{
+                  background:
+                    "linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.05) 100%)",
+                  minHeight: "200px",
+                }}
               >
-                <h3 className="text-xl font-semibold mb-2">{idea.title}</h3>
-                <p className="text-sm text-gray-700">{idea.content}</p>
+                <h3 className="text-xl font-semibold mb-2 text-gray-900">{idea.title}</h3>
+                <p className="text-sm text-gray-600">{idea.content}</p>
               </div>
             ))}
           </div>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import Chart from "chart.js/auto";
 import {
     ChevronDown,
     FileText,
@@ -15,13 +16,24 @@ import {
     Shield,
     Settings,
 } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 export default function BusinessAnalysis() {
+    const router = useRouter();
+
+    const handleLogoClick = () => {
+      router.push("/"); // Redirects to home page
+    };
+
     const [activeSection, setActiveSection] = useState<string>("Executive Summary");
     const [activeSubsection, setActiveSubsection] = useState<string | null>(null);
 
     // Ref to track and scroll to sections
     const subsectionRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
+    const chartRef1 = useRef<HTMLCanvasElement | null>(null);
+    const chartRef2 = useRef<HTMLCanvasElement | null>(null);
+    const marketValueChart = useRef<Chart | null>(null);
+    const unitsSoldChart = useRef<Chart | null>(null);
 
     interface MarketReportData {
         [key: string]: {
@@ -36,7 +48,7 @@ export default function BusinessAnalysis() {
                 "VR Glasses, designed for immersive virtual reality experiences, offer a cutting-edge platform for both entertainment and professional use. These glasses feature:\n\n- High-definition visual display: Optimized for ultra-clear imagery with a 120-degree field of vision.\n- Lightweight ergonomic design: Ensures comfort during extended use.\n- Advanced motion tracking: Utilizes sensors to precisely capture head movements for a more responsive user experience.\n- Integrated audio: Built-in surround sound delivers a truly immersive experience.\n- Wireless connectivity: Seamlessly pairs with smartphones, consoles, and computers via Bluetooth or Wi-Fi.\n\nUnique Value Proposition: The combination of top-tier resolution, high-performance motion sensors, and ergonomic design sets these VR Glasses apart, making them a versatile solution for gaming, virtual tours, simulations, education, and remote work environments.",
 
             "Key Market Findings":
-                "The global VR market is expected to experience exponential growth, with VR hardware being a major driver. The following insights highlight key findings related to the VR Glasses market:\n\nMarket Size: The global virtual reality market size was valued at USD 21.83 billion in 2022 and is projected to grow at a compound annual growth rate (CAGR) of 15.3% from 2023 to 2028.\n\nTarget Audience: Key demographics include tech-savvy consumers aged 18-34, gaming enthusiasts, education institutions, and corporate professionals looking for virtual collaboration tools.\n\nCompetitive Landscape: Major competitors in the market include Oculus (Meta), HTC Vive, Sony PlayStation VR, and Samsung Gear VR. While these brands dominate, there is significant room for mid-range and feature-enhanced products that address unmet needs, such as improved portability and higher comfort levels.\n\nGrowth Trends: The integration of VR in industries beyond entertainment, such as education, healthcare, real estate, and virtual tourism, is a key driver of future demand.\n\nSee Graph 1: Projected Market Growth (2022–2028)",
+                "The global VR market is expected to experience exponential growth, with VR hardware being a major driver. The following insights highlight key findings related to the VR Glasses market:\n\nMarket Size: The global virtual reality market size was valued at <b>USD 21.83 billion</b> in 2022 and is projected to grow at a compound annual growth rate (CAGR) of <b>15.3%</b> from 2023 to 2028.\n\nTarget Audience: Key demographics include tech-savvy consumers aged 18-34, gaming enthusiasts, education institutions, and corporate professionals looking for virtual collaboration tools.\n\nCompetitive Landscape: Major competitors in the market include Oculus (Meta), HTC Vive, Sony PlayStation VR, and Samsung Gear VR. While these brands dominate, there is significant room for mid-range and feature-enhanced products that address unmet needs, such as improved portability and higher comfort levels.\n\nGrowth Trends: The integration of VR in industries beyond entertainment, such as education, healthcare, real estate, and virtual tourism, is a key driver of future demand.\n\nSee Graph 1: Projected Market Growth (2022–2028)",
 
             "Product Opportunities":
                 "Several opportunities exist for VR Glasses to expand market reach:\n\nUnmet Customer Needs: Survey data indicates that 45% of VR users desire lighter, more comfortable devices for extended use. Offering a more ergonomic solution could attract this untapped segment.\n\nEducational Applications: The global adoption of VR in education is forecasted to grow by 18% annually, creating a potential avenue for VR Glasses to be marketed as a learning tool.\n\nExpansion in Corporate Training: Companies are increasingly leveraging VR for employee training, onboarding, and remote collaboration. Expanding VR Glasses into enterprise-level solutions with customizable content could position the product as a go-to device for business solutions.\n\nSee Table 1: Emerging Market Applications for VR Glasses",
@@ -199,12 +211,121 @@ export default function BusinessAnalysis() {
         }
     }, [activeSubsection]);
 
+
+
+    useEffect(() => {
+        if (activeSection === "Executive Summary") {
+            const data = [
+                { Year: 2022, Market_Value: 15.2, Units_Sold: 721 },
+                { Year: 2023, Market_Value: 13.9, Units_Sold: 843 },
+                { Year: 2024, Market_Value: 18.5, Units_Sold: 897 },
+                { Year: 2025, Market_Value: 22.8, Units_Sold: 922 },
+                { Year: 2026, Market_Value: 27.6, Units_Sold: 1006 }
+            ];
+
+            const labels = data.map(item => item.Year);
+            const marketValues = data.map(item => item.Market_Value);
+            const unitsSold = data.map(item => item.Units_Sold);
+
+            // Destroy previous charts if they exist
+            if (marketValueChart.current) {
+                marketValueChart.current.destroy();
+            }
+            if (unitsSoldChart.current) {
+                unitsSoldChart.current.destroy();
+            }
+
+            // Market Value Line Chart
+            if (chartRef1.current) {
+                marketValueChart.current = new Chart(chartRef1.current, {
+                    type: 'line',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Market Value (in USD billions)',
+                            data: marketValues,
+                            borderColor: 'rgba(75, 192, 192, 1)',
+                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                            borderWidth: 2,
+                            tension: 0.3,
+                            fill: true
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        animation: {
+                            duration: 1500,
+                            easing: 'easeInOutBounce'
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                title: {
+                                    display: true,
+                                    text: 'Market Value (in USD billions)'
+                                }
+                            },
+                            x: {
+                                title: {
+                                    display: true,
+                                    text: 'Year'
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Units Sold Bar Chart
+            if (chartRef2.current) {
+                unitsSoldChart.current = new Chart(chartRef2.current, {
+                    type: 'bar',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Units Sold (in thousands)',
+                            data: unitsSold,
+                            backgroundColor: 'rgba(153, 102, 255, 0.6)',
+                            borderColor: 'rgba(153, 102, 255, 1)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        animation: {
+                            duration: 1500,
+                            easing: 'easeInOutBounce'
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                title: {
+                                    display: true,
+                                    text: 'Units Sold (in thousands)'
+                                }
+                            },
+                            x: {
+                                title: {
+                                    display: true,
+                                    text: 'Year'
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+        }
+    }, [activeSection, activeSubsection]);
+
+
+
     return (
         <div className="flex h-screen bg-gray-100 font-sans">
             {/* Sidebar */}
             <div className="w-64 bg-gradient-to-b from-green-600 to-blue-700 text-white p-4 overflow-y-auto">
-                <div className="flex items-center mb-8">
-                    <img src="images/logo.jpg" alt="Small Logo" className="w-10 h-10 mr-2 rounded-full" />  
+                <div className="flex items-center mb-8 cursor-pointer"
+                onClick={handleLogoClick}>
+                    <img src="images/logo.jpg" alt="Small Logo" className="w-10 h-10 mr-2 rounded-full" />
                     <h1 className="text-2xl font-bold font-poppins">Figurush</h1>
                 </div>
                 {sidebarSections.map((section) => (
@@ -262,14 +383,35 @@ export default function BusinessAnalysis() {
                                     <h3 className="text-2xl font-semibold mb-3 text-gray-700 font-roboto">
                                         {subSectionTitle}
                                     </h3>
-                                    <p className="text-md text-gray-600 leading-relaxed font-light">
+                                    {/* <p className="text-md text-gray-600 leading-relaxed font-light">
                                         {subSectionContent.split("\n").map((line, i) => (
                                             <span key={i}>
                                                 {line}
                                                 <br />
                                             </span>
                                         ))}
+                                    </p> */}
+                                    <p className="text-md text-gray-600 leading-relaxed font-light">
+                                        <span
+                                            dangerouslySetInnerHTML={{
+                                                __html: subSectionContent.replace(/\n/g, "<br />"),
+                                            }}
+                                        />
                                     </p>
+
+                                    {/* Insert charts after Key Market Findings */}
+                                    {activeSection === "Executive Summary" && subSectionTitle === "Key Market Findings" && (
+                                        <div>
+                                            <canvas ref={chartRef1} id="marketValueChart" style={{ marginTop: '40px' }}></canvas>
+                                        </div>
+                                    )}
+                                    {/* Insert charts after Product Opportunities */}
+                                    {activeSection === "Executive Summary" && subSectionTitle === "Product Opportunities" && (
+                                        <div>
+                                            <canvas ref={chartRef2} id="unitsSoldChart" style={{ marginTop: '40px' }}></canvas>
+                                        </div>
+                                    )}
+
                                 </div>
                             )
                         )}

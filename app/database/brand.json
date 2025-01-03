@@ -1,0 +1,26 @@
+{
+    "brands": [
+      {
+        "brand_name": "Nike",
+        "logo_path": "C:/Users/Username/Desktop/image.png",
+        "brand_colors": ["#000000", "#FFFFFF", "#FF0000", "#00FF00"],
+        "font": "Arial",
+        "save_to_library": true
+      },
+      {
+        "brand_name": "Samsung",
+        "logo_path": "C:/Users/Username/Desktop/image.png",
+        "brand_colors": ["#1428A0", "#FFFFFF", "#757575", "#000000"],
+        "font": "Helvetica",
+        "save_to_library": false
+      },
+      {
+        "brand_name": "Disney",
+        "logo_path": "C:/Users/Username/Desktop/image.png",
+        "brand_colors": ["#1E90FF", "#FFFFFF", "#000000", "#FFD700"],
+        "font": "Comic Sans MS",
+        "save_to_library": true
+      }
+    ]
+  }
+  
