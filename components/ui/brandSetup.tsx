@@ -14,20 +14,23 @@ import {
 } from '@/components/ui/select';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Upload, ChevronDown, X } from 'lucide-react';
-import { useRouter } from 'next/router';
+// import { useRouter } from 'next/router';
 
 interface BrandSetupProps {
-  onClose: () => void; // Function to handle closing the modal
-  setActiveSection: (section: string) => void; // Function to set active section
+  onClose: () => void;
+  isOpen: boolean; // Add this line
+  // setActiveSection: (section: string) => void;
 }
 
-export default function BrandSetup({ onClose, setActiveSection }: BrandSetupProps) {
+export default function BrandSetup({ onClose }: BrandSetupProps) {
   const [brandColors, setBrandColors] = useState<string[]>(['', '', '', '']);
   const [selectedFont, setSelectedFont] = useState('');
   const [brandName, setBrandName] = useState('');
-  const [upload, setUpload] = useState<File | null>(null); // Track uploaded file
+  // const [upload, setUpload] = useState<File | null>(null);
   const [isFormValid, setIsFormValid] = useState(true);
-  const [isMounted, setIsMounted] = useState(false); // To ensure client-side rendering
+  const [isMounted, setIsMounted] = useState(false);
+  // const [isLoading, setIsLoading] = useState(false);
+  // const [storedBrandName, setStoredBrandName] = useState<string>('');
 
   const handleColorChange = (index: number, color: string) => {
     const newColors = [...brandColors];
@@ -46,28 +49,24 @@ export default function BrandSetup({ onClose, setActiveSection }: BrandSetupProp
   ];
 
   useEffect(() => {
-    // Ensures that the router is only used on the client side.
     setIsMounted(true);
   }, []);
 
-  const handleNext = () => {
-    // Validate inputs
-    if (!brandName || !selectedFont || brandColors.some(color => !color) || !upload) {
+  const handleNext = async () => {
+    if (!brandName) {
       setIsFormValid(false);
       return;
     }
 
-    // Set active section to "Projects"
-    setActiveSection("Brands");
+    // setStoredBrandName(brandName);
+    onClose();
   };
 
-  // Don't render the component until the client has mounted
   if (!isMounted) return null;
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
       <div className="bg-gray-100 w-[60vw] h-[90vh] max-w-4xl max-h-[120vh] rounded-lg shadow-lg p-6 overflow-y-auto">
-        {/* Header */}
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-2xl font-bold text-gray-900">Brand Setup</h2>
           <button onClick={onClose} className="text-gray-400 hover:text-gray-600">
@@ -78,12 +77,10 @@ export default function BrandSetup({ onClose, setActiveSection }: BrandSetupProp
           <CardHeader>
             <CardTitle className="text-2xl font-bold text-gray-900">Ad set information</CardTitle>
             <CardDescription className="text-gray-600">
-              Our AI automatically found the brand, audience, and product information. Review and
-              modify if necessary.
+              Our AI automatically found the brand, audience, and product information. Review and modify if necessary.
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
-            {/* Brand Section */}
             <div className="space-y-4">
               <div className="flex items-center justify-between">
                 <h2 className="text-xl font-semibold text-blue-600">Brand</h2>
@@ -93,7 +90,6 @@ export default function BrandSetup({ onClose, setActiveSection }: BrandSetupProp
                 </Button>
               </div>
 
-              {/* Brand Name and Logo */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <Label htmlFor="brandName">Brand name</Label>
@@ -123,14 +119,12 @@ export default function BrandSetup({ onClose, setActiveSection }: BrandSetupProp
                       type="file"
                       id="file-upload"
                       className="sr-only"
-                      onChange={(e) => setUpload(e.target.files ? e.target.files[0] : null)}
+                      // onChange={(e) => setUpload(e.target.files ? e.target.files[0] : null)}
                     />
                   </div>
-                  {!upload && !isFormValid && <p className="text-red-500 text-sm">Upload is required.</p>}
                 </div>
               </div>
 
-              {/* Brand Colors */}
               <div className="space-y-2">
                 <Label>Brand color</Label>
                 <div className="flex gap-2">
@@ -159,15 +153,11 @@ export default function BrandSetup({ onClose, setActiveSection }: BrandSetupProp
                     </div>
                   ))}
                 </div>
-                {brandColors.some(color => !color) && !isFormValid && (
-                  <p className="text-red-500 text-sm">All color fields are required.</p>
-                )}
               </div>
 
-              {/* Font Selection */}
               <div className="space-y-2">
                 <Label>Font</Label>
-                <Select value={selectedFont} onValueChange={setSelectedFont} required>
+                <Select value={selectedFont} onValueChange={setSelectedFont}>
                   <SelectTrigger className="bg-gray-50">
                     <SelectValue placeholder="Please select brand font" />
                   </SelectTrigger>
@@ -179,10 +169,8 @@ export default function BrandSetup({ onClose, setActiveSection }: BrandSetupProp
                     ))}
                   </SelectContent>
                 </Select>
-                {!selectedFont && !isFormValid && <p className="text-red-500 text-sm">Font selection is required.</p>}
               </div>
 
-              {/* Save to Library */}
               <div className="flex items-center space-x-2">
                 <Checkbox id="saveLibrary" />
                 <label
@@ -194,7 +182,6 @@ export default function BrandSetup({ onClose, setActiveSection }: BrandSetupProp
               </div>
             </div>
 
-            {/* Next Button */}
             <div className="flex justify-end">
               <Button className="bg-blue-600 hover:bg-blue-700 text-white px-8" onClick={handleNext}>
                 Next

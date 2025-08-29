@@ -1,6 +1,6 @@
 // components/Navigation.tsx
 
-import { useState } from 'react';
+// import { useState } from 'react';
 import { Users, Package, FileText, Lightbulb, Cpu, ClipboardList, Settings } from 'lucide-react';
 import { useRouter } from "next/navigation";
 
@@ -14,7 +14,12 @@ const navigationItems = [
   { title: 'Settings', icon: Settings },
 ];
 
-export default function Navigation({ activeSection, setActiveSection }: any) {
+interface NavigationProps {
+  activeSection: string;
+  setActiveSection: (section: string) => void;
+}
+
+export default function Navigation({ activeSection, setActiveSection }: NavigationProps) {
   const router = useRouter();
 
   const handleLogoClick = () => {

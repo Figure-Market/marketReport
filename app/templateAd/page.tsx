@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from 'react';
+// import { useState } from 'react';
 
 // export default function ProductAdCard() {
 //     const productImage = '/images/belowSide.png'; // URL of the product image

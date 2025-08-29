@@ -4,13 +4,14 @@ interface AdCardProps {
     title: string;
     subtitle: string;
     template: string; // Added to determine the template type
+    image: string; // Added image property
   };
 }
 
 import OneCard from '@/components/template/oneCard';
 import TwoCard from '@/components/template/twoCard';
-import TemplateOneCard from './TemplateOneCard';
-import TemplateTwoCard from './TemplateTwoCard';
+// import TemplateOneCard from './TemplateOneCard';
+// import TemplateTwoCard from './TemplateTwoCard';
 
 export default function AdCard({ ad }: AdCardProps) {
   return (
@@ -33,16 +34,16 @@ export default function AdCard({ ad }: AdCardProps) {
       >
         {ad.template === 'TemplateOneCard' ? (
           <OneCard
-            productImage="/images/belowSide.png" // Replace with dynamic image if needed
+            productImage={ad.image} // Dynamic Image
             title={ad.title}
             subtitle={ad.subtitle}
             showButtons={false} // No buttons in grid view
           />
         ) : ad.template === 'TemplateTwoCard' ? (
           <TwoCard
-            productImage="/images/belowSide.png"
-            title="Boost Ecommerce Growth Today"
-            subtitle="One Platform, Infinite Possibilities"
+            productImage={ad.image} // Dynamic Image
+            title={ad.title}
+            subtitle={ad.subtitle}
             showButtons={false} // No buttons for the template
           />
         ) : (

@@ -5,7 +5,6 @@ import {
   ChevronDown,
   Bell,
   CreditCard,
-  Search,
   HelpCircle,
   Image,
   Camera,

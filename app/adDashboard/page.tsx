@@ -4,20 +4,9 @@ import { useState, useEffect } from "react";
 import {
   ChevronDown,
   FileText,
-  Rocket,
-  Package,
-  Users,
-  TrendingUp,
-  Shield,
-  Settings,
-  ClipboardList,
-  Lightbulb,
-  Monitor,
-  Cpu,
   Camera,
   Video,
   Instagram,
-  Layers,
   ChevronRight,
   Image,
 } from "lucide-react";
@@ -30,6 +19,10 @@ import { Input } from "@/components/ui/input"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import Navigation from "@/components/ui/navigation";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+
+
+// API Endpoint
+// const API_BASE_URL = "http://localhost:8000"; // Update with deployed FastAPI URL if needed
 
 // Define TypeScript Interface for the Brand
 interface Brand {
@@ -50,6 +43,7 @@ export default function AdCreativeDashboard() {
   const [backgroundImage, setBackgroundImage] = useState('')
 
   const [brandData, setBrandData] = useState<Brand[]>([]); // State to store JSON data
+  const [selectedBrand, setSelectedBrand] = useState("Nike"); // Changed default to "Nike"
 
 
 
@@ -106,8 +100,15 @@ export default function AdCreativeDashboard() {
     assetType: "",
     creativeSize: "",
     adText: { headline: "", punchline: "", cta: "" },
-    backgroundImage: null,
+    backgroundImage: "",
   });
+
+  // Store Advertisement Data on Final Step
+  const handleSubmitAdvertisement = async () => {
+    router.push("/advertisement");
+  };
+
+
 
   const handleNextStep = () => {
     if (currentStep === 0) {
@@ -123,44 +124,25 @@ export default function AdCreativeDashboard() {
       // Save data including the background image when the final step is reached
       const updatedFormData = { ...formData, backgroundImage };
       setFormData(updatedFormData);
-  
-      // Save data to the server
-      fetch("/api/saveData", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(updatedFormData),
-      })
-        .then((response) => {
-          if (response.ok) {
-            console.log("Data saved successfully!");
-            router.push("/advertisement");
-          } else {
-            console.error("Failed to save data.");
-          }
-        })
-        .catch((error) => console.error("Error saving data:", error));
+      handleSubmitAdvertisement();
     }
-  
+
     setCurrentStep((prev) => Math.min(prev + 1, steps.length - 1));
   };
 
   const handlePrevStep = () => setCurrentStep((prev) => Math.max(prev - 1, 0));
 
 
-  const handleBackgroundImageChange = (e) => {
-    const file = e.target.files[0];
+  const handleBackgroundImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files ? e.target.files[0] : null;
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setBackgroundImage(reader.result); // Store the base64 string of the image
+        setBackgroundImage(reader.result as string); // Store the base64 string of the image
       };
       reader.readAsDataURL(file);
     }
   };
-  
-
 
   // Fetch the JSON data on component mount
   useEffect(() => {
@@ -172,34 +154,42 @@ export default function AdCreativeDashboard() {
       })
       .catch((error) => console.error("Error loading data:", error));
   }, []);
-  
+
 
 
   return (
     <div className="flex h-screen bg-gray-100 font-sans">
       {/* Sidebar */}
-      <Navigation activeSection={activeSection} setActiveSection={setActiveSection}/>
+      <Navigation activeSection={activeSection} setActiveSection={setActiveSection} />
 
       {/* Main Content */}
       <main className="flex-grow p-8 ml-80 overflow-y-auto">
         {/* Header */}
         <header className="flex justify-between items-center mb-8">
           <div className="relative w-64">
-            <Select defaultValue="StoreFilter">
-              <SelectTrigger className="pl-10 pr-4 py-2 border bg-white border-gray-300 rounded-lg w-full">
-                <SelectValue placeholder="Select Project" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="StoreFilter">StoreFilter</SelectItem>
-                <SelectItem value="Smartwatch">Smartwatch</SelectItem>
-                <SelectItem value="VRGlassess">VRGlassess</SelectItem>
-              </SelectContent>
-            </Select>
-            {/* <input
-              type="text"
-              placeholder="StoreFilter"
-              className="pl-10 pr-4 py-2 border border-gray-300 rounded-lg w-full"
-            /> */}
+            {activeSection === "Projects" ? (
+              // Display the selected brand name as text or disabled dropdown
+              <div className="pl-10 pr-4 py-2 border bg-gray-200 border-gray-300 rounded-lg w-full flex items-center justify-between">
+                <span className="text-gray-700">{selectedBrand}</span>
+              </div>
+            ) : (
+              // Show the dropdown when not in the Projects section
+              <Select
+                value={selectedBrand}
+                onValueChange={(value) => setSelectedBrand(value)}
+              >
+                <SelectTrigger className="pl-10 pr-4 py-2 border bg-white border-gray-300 rounded-lg w-full">
+                  <SelectValue placeholder={selectedBrand || "Select Project"} />
+                </SelectTrigger>
+                <SelectContent>
+                  {brandData.map((brand, index) => (
+                    <SelectItem key={index} value={brand.brand_name}>
+                      {brand.brand_name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            )}
             <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
           </div>
           <div className="flex items-center space-x-4">
@@ -261,37 +251,40 @@ export default function AdCreativeDashboard() {
                 <p className="text-sm text-gray-600">0 Projects Created</p>
               </Card> */}
               {/* Dynamically Render Brand Cards */}
-            {brandData.map((brand, index) => (
-              <Card
-                key={index}
-                className="p-4 flex flex-col items-center justify-center text-center cursor-pointer hover:bg-gray-50"
-                onClick={() => setActiveSection("Projects")}
-              >
-                {/* Brand Logo */}
-                <div className="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center mb-4">
-                  <img
-                    src={brand.logo_path}
-                    alt={`${brand.brand_name} Logo`}
-                    className="w-full h-full object-cover rounded-full"
-                  />
-                </div>
-                {/* Brand Name */}
-                <h3 className="font-semibold mb-1">{brand.brand_name}</h3>
-                {/* Brand Colors */}
-                <div className="flex space-x-1 mb-2">
-                  {brand.brand_colors.map((color, idx) => (
-                    <div
-                      key={idx}
-                      style={{ backgroundColor: color }}
-                      className="w-4 h-4 rounded-full border"
-                    ></div>
-                  ))}
-                </div>
-                {/* Save Status */}
-                <p className="text-sm text-gray-600">
-                  {brand.save_to_library ? "Saved" : "Not Saved"}
-                </p>
-              </Card>
+              {brandData.map((brand, index) => (
+                <Card
+                  key={index}
+                  className="p-4 flex flex-col items-center justify-center text-center cursor-pointer hover:bg-gray-50"
+                  onClick={() => {
+                    setSelectedBrand(brand.brand_name); // ✅ Update brand name
+                    setActiveSection("Projects"); // ✅ Navigate to Projects section
+                  }}
+                >
+                  {/* Brand Logo */}
+                  <div className="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center mb-4">
+                    <img
+                      src={brand.logo_path}
+                      alt={`${brand.brand_name} Logo`}
+                      className="w-full h-full object-cover rounded-full"
+                    />
+                  </div>
+                  {/* Brand Name */}
+                  <h3 className="font-semibold mb-1">{brand.brand_name}</h3>
+                  {/* Brand Colors */}
+                  <div className="flex space-x-1 mb-2">
+                    {brand.brand_colors.map((color, idx) => (
+                      <div
+                        key={idx}
+                        style={{ backgroundColor: color }}
+                        className="w-4 h-4 rounded-full border"
+                      ></div>
+                    ))}
+                  </div>
+                  {/* Save Status */}
+                  <p className="text-sm text-gray-600">
+                    {brand.save_to_library ? "Saved" : "Not Saved"}
+                  </p>
+                </Card>
               ))}
             </div>
           </div>
@@ -407,14 +400,14 @@ export default function AdCreativeDashboard() {
                 </div>
               )}
 
-            {currentStep === 3 && (
-              <div>
-                <h2 className="text-2xl font-bold mb-4">Choose Background Image</h2>
-                <p className="text-gray-600 mb-6">Upload an image for your product or use our image search for premium stock images.</p>
-                <div className="mb-4">
-                  <Input type="file" onChange={handleBackgroundImageChange} />
-                </div>
-                {/* {backgroundImage && (
+              {currentStep === 3 && (
+                <div>
+                  <h2 className="text-2xl font-bold mb-4">Choose Background Image</h2>
+                  <p className="text-gray-600 mb-6">Upload an image for your product or use our image search for premium stock images.</p>
+                  <div className="mb-4">
+                    <Input type="file" onChange={handleBackgroundImageChange} />
+                  </div>
+                  {/* {backgroundImage && (
                   <div className="mt-4">
                     <h3 className="font-semibold mb-2">Preview</h3>
                     <div className="relative w-full h-64 bg-gray-100 rounded-lg overflow-hidden">
@@ -431,8 +424,8 @@ export default function AdCreativeDashboard() {
                     </div>
                   </div>
                 )} */}
-              </div>
-            )}
+                </div>
+              )}
             </Card>
 
             {/* Navigation Buttons */}
@@ -446,12 +439,12 @@ export default function AdCreativeDashboard() {
             </div>
 
             {/* Final JSON */}
-            {currentStep === steps.length - 1 && (
+            {/* {currentStep === steps.length - 1 && (
               <div className="mt-6">
                 <h3 className="font-bold mb-2">Saved Data:</h3>
                 <pre className="bg-gray-100 p-4 rounded">{JSON.stringify(formData, null, 2)}</pre>
               </div>
-            )}
+            )} */}
 
           </div>
         )}
