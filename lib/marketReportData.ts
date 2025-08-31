@@ -45,18 +45,25 @@ export type MarketReportData = Record<
 export const marketReportData: MarketReportData = {
   "Executive Summary": {
     "Product Overview": `
-Nike is the global reference brand in athletic footwear, combining performance engineering with cultural relevance.  
-The company operates at scale across **North America, Europe, and Asia–Pacific**, and sustains premium positioning through technology platforms (*Air, ZoomX, Flyknit*), athlete partnerships, and a diversified portfolio spanning performance, lifestyle, and Jordan.  
+Nike India’s daily-wear portfolio centers on premium casual and lifestyle sneakers. The brand is positioned as aspirational and innovation-driven, combining advanced athletic technology with fashionable design (marketingmonk.so, irjweb.com). Its India lineup includes lifestyle trainers (e.g. Air Max, Air Force, Nike SB), casual running/walking shoes (e.g. Pegasus, Revolution), and sporty slip-ons – all marketed for comfort and style in everyday urban settings. Consumers perceive Nike as offering high-quality, durable footwear with a sporty image (irjweb.com, marketingmonk.so). This premium positioning carries a higher price tag, so Nike’s shoes are especially popular among urban youth, working professionals, and fitness-oriented buyers who seek status, comfort, and brand appeal in daily footwear.
 
-With an estimated **27–30% global share**, Nike’s competitive moat is reinforced by its design velocity, storytelling, and direct-to-consumer (DTC) ecosystem.
+**Positioning:** Nike is seen as a premium, performance-oriented brand. It emphasizes cutting-edge design and quality, making it aspirational for style-conscious consumers.  
+
+**Product Types:** The daily-use range covers lifestyle sneakers (Air Max, Court, SB Dunk, etc.), casual trainers/running shoes (Pegasus, Free series), and lightweight walking/athleisure models adapted for comfort.  
+
+**Perceived Value:** Buyers generally view Nike as offering stylish, well-built shoes that “excel at producing stylish, high-quality” footwear (irjweb.com). Brand prestige and performance features command a price premium; Nike is often purchased for its design and status rather than bargain pricing.
 `,
 
     "Key Market Findings": `
-- FY2024 footwear revenue is estimated at **$33B**, representing ~**68%** of total company revenue; gross margin resilience supported by DTC mix.  
-- Category mix skews to performance: **Running ~40%**, **Basketball ~30%**, Lifestyle/Street **~18–20%**; training and other categories comprise the balance.  
-- Channel shift continues: **DTC penetration >50%** in developed markets, lifting lifetime value (LTV) and data visibility; wholesale remains critical in APAC and LATAM.  
-- Regional dynamics diverge: **North America** is maturing with price elasticity and promo intensity; **Europe** benefits from sports-lifestyle momentum; **APAC** (esp. India/SEA) drives unit growth.  
-- Competitive intensity is rising in niche performance: **Hoka** and **On** outpace the market in premium running, while **adidas** retains strength in soccer and fashion collaborations.
+India’s sneaker and casual footwear market is expanding rapidly. The India sneakers market was valued at about **US$3.2 billion in 2024** (researchandmarkets.com) with double-digit growth expected through 2030. The overall Indian footwear market was ~₹90,000 crore (~$11 billion) in 2023 (indusfootwear.com) and is projected to grow at 8–10% CAGR. Urban consumers currently dominate, driven by rising disposable incomes and lifestyle awareness.  
+
+**Market Size & Growth:** India’s footwear market is expanding robustly, with casual/sports segments outpacing formal wear.  
+
+**Nike’s Position:** Nike remains a top international brand in India, competing with Adidas, Puma, and Skechers. However, its revenue (~₹1,200 Cr in 2024; tofler.in) is still smaller compared to domestic leaders like Bata and Campus (indusfootwear.com).  
+
+**Consumer Trends:** Purchases are driven by comfort, fashion, and brand prestige. Athleisure is a dominant trend, fueled by social media and celebrity endorsements.  
+
+**Urban vs. Tier-2/3:** Tier 1 cities currently lead adoption, but Tier 2/3 cities show increasing growth via e-commerce (openpr.com). This represents strong future potential for Nike.  
 `,
 
     "Product Opportunities": `
@@ -79,49 +86,17 @@ Execution risk remains elevated as the category normalizes from pandemic peaks a
 - Digital platform dependency: rising paid-media costs and privacy changes pressure DTC acquisition efficiency.
 `,
 
-    "Strategic Recommendation": `
-🎯 **2025–2027 Strategic Priorities**
+"Strategic Recommendation": `
+To succeed in India’s daily-wear market, Nike should:
 
----
+1. **Localized Pricing & Product Tiers:** Introduce affordable India-specific models, possibly through regional material sourcing (indusfootwear.com).
+2. **Expand Omni-Channel Reach:** Strengthen e-commerce partnerships and exclusive online drops while expanding Tier-2/3 presence via franchise/shop-in-shop outlets (indusfootwear.com).
+3. **Targeted Regional Marketing:** Launch campaigns in local languages, collaborate with influencers/athletes, and sponsor community sports/campus events.
+4. **Customization & Collaborations:** Offer Nike iD customization and India-specific limited drops (IPL, Diwali editions, Bollywood tie-ups).
+5. **Enhance Value Proposition:** Highlight Nike’s tech edge (comfort, durability) and add eco-friendly collections (indusfootwear.com).
+6. **Combat Counterfeits:** Promote awareness of authentic channels, work with e-commerce platforms to curb fakes, and provide warranty/service guarantees.
 
-### 1) Lead in Performance Where It Matters Most
-- Accelerate running innovation cadence (foam, plate geometry, energy return).  
-- Formalize a “Pro Lab” funnel to commercial lines within 12–18 months.  
-- Protect basketball icons with fewer, bigger, better launches; expand court-to-street storytelling.  
-
----
-
-### 2) Scale Women’s and Wellness
-- Build a women’s-first fit system and bottoms-to-shoes merchandising.  
-- Launch community programs with female coaches and creators.  
-
----
-
-### 3) Localize for Emerging Markets
-- City-level playbooks with local athletes and ambassadors.  
-- Price packs tuned to regional ASP bands.  
-- Expand Click-&-Collect and retail partners for last-mile reliability.  
-
----
-
-### 4) Make Sustainability a Value Proposition
-- Increase recycled/bio-based content per line with transparent labeling.  
-- Scale repair/recycle services to support premium willingness to pay.  
-
----
-
-### 5) Win with Data & DTC Economics
-- Invest in CRM and experimentation stack (offer testing, cohorts, CLV models).  
-- Tighten wholesale door segmentation to reduce promotional leakage.  
-
----
-
-📊 **Success Metrics (headline targets)**
-- DTC mix: **+300–500 bps**  
-- Repeat purchase rate: **+5–7 pts**  
-- Women’s share of footwear revenue: **+400 bps**  
-- Premium running sell-through: **>80% in season**  
-- Units with recycled/bio materials: **>35% by FY27**
+By pursuing competitive pricing, omni-channel expansion, regional marketing, and innovation, Nike can strengthen its presence and capture India’s fast-growing daily-use sneaker segment (researchandmarkets.com).
 `,
 
     charts: [

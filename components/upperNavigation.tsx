@@ -51,7 +51,7 @@ const UpperNavigation = () => {
                   Market Report
                 </button>
                 <button
-                  onClick={() => handleDropdownItemClick("/reportInput")}
+                  onClick={() => handleDropdownItemClick("/adDashboard")}
                   className="block px-4 py-2 text-left hover:bg-gray-100 w-full"
                 >
                   Advertisement
