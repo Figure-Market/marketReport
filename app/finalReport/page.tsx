@@ -280,7 +280,11 @@ export default function BusinessAnalysis() {
                     <ul className="list-disc list-inside text-gray-600 space-y-1 pl-5">
                       {content.map((point, index) => (
                         <li key={index} className="text-md font-light">
-                          {point}
+                          {typeof point === "string"
+                            ? point
+                            : "title" in (point as any)
+                            ? (point as any).title
+                            : JSON.stringify(point)}
                         </li>
                       ))}
                     </ul>
@@ -291,51 +295,42 @@ export default function BusinessAnalysis() {
                           {(content as any).headline}
                         </p>
                         <ul className="list-disc list-inside space-y-1 pl-5">
-                          {(content as any).points.map(
-                            (point: string, index: number) => (
-                              <li key={index} className="text-md font-light">
-                                {point}
-                              </li>
-                            )
-                          )}
+                          {(content as any).points.map((point: string, index: number) => (
+                            <li key={index} className="text-md font-light">
+                              {point}
+                            </li>
+                          ))}
                         </ul>
                       </div>
                     ) : (
                       <div className="text-gray-600 space-y-4">
-                        {Object.entries(
-                          content as Record<string, any>
-                        ).map(([key, value], idx) => (
+                        {Object.entries(content as Record<string, any>).map(([key, value], idx) => (
                           <div key={idx}>
                             <p className="text-md font-medium mb-2">{key}</p>
                             {Array.isArray(value) ? (
                               <ul className="list-disc list-inside pl-5 space-y-1">
                                 {value.map((item, i) => (
                                   <li key={i} className="text-md font-light">
-                                    {item}
+                                    {typeof item === "string" ? item : JSON.stringify(item)}
                                   </li>
                                 ))}
                               </ul>
                             ) : typeof value === "string" ? (
                               renderMarkdown(value)
-                            ) : typeof value === "object" &&
-                              value !== null ? (
+                            ) : typeof value === "object" && value !== null ? (
                               <div className="ml-4 border-l pl-4 space-y-1">
-                                {Object.entries(value).map(
-                                  ([innerKey, innerValue], j) => (
-                                    <div key={j}>
-                                      <p className="text-sm font-semibold">
-                                        {innerKey}
+                                {Object.entries(value).map(([innerKey, innerValue], j) => (
+                                  <div key={j}>
+                                    <p className="text-sm font-semibold">{innerKey}</p>
+                                    {typeof innerValue === "string" ? (
+                                      renderMarkdown(innerValue)
+                                    ) : (
+                                      <p className="text-sm text-gray-600">
+                                        {JSON.stringify(innerValue)}
                                       </p>
-                                      {typeof innerValue === "string" ? (
-                                        renderMarkdown(innerValue)
-                                      ) : (
-                                        <p className="text-sm text-gray-600">
-                                          {JSON.stringify(innerValue)}
-                                        </p>
-                                      )}
-                                    </div>
-                                  )
-                                )}
+                                    )}
+                                  </div>
+                                ))}
                               </div>
                             ) : (
                               <p className="text-sm italic text-gray-500">
@@ -347,10 +342,9 @@ export default function BusinessAnalysis() {
                       </div>
                     )
                   ) : (
-                    <p className="text-gray-500 italic">
-                      Unsupported content format
-                    </p>
+                    <p className="text-gray-500 italic">Unsupported content format</p>
                   )}
+
 
                   {/* 🔹 Inline charts for this subsection */}
                   {"charts" in sectionData &&
